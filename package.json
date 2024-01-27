@@ -1,0 +1,25 @@
+{
+    "name": "bitcoin-starter",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "argon2": "^0.31.2",
+        "bip32": "^4.0.0",
+        "bitcoinjs-lib": "^6.1.5",
+        "commander": "^11.1.0",
+        "ecpair": "^2.1.0",
+        "inquirer": "^8.2.6",
+        "tiny-secp256k1": "^2.2.3",
+        "typescript": "^5.3.3"
+    },
+    "devDependencies": {
+        "@types/inquirer": "^9.0.7"
+    }
+}
