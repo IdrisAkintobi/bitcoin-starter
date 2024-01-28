@@ -9,15 +9,8 @@ const write = promisify(writeFile);
 
 export class DB {
     public static async read(): Promise<Array<Record<string, any>>> {
-        try {
-            const data = await read(DB_PATH, 'utf-8');
-            return JSON.parse(data);
-        } catch (e) {
-            console.log(
-                'Error reading the database file: Create a new one db.json with an empty array as content',
-            );
-            throw e;
-        }
+        const data = await read(DB_PATH, 'utf-8');
+        return JSON.parse(data);
     }
 
     public static async append(data: Array<Record<string, any>>): Promise<void> {
