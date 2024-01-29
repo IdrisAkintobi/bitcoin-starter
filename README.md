@@ -1,4 +1,4 @@
-# NestJS with Redis
+# Bitcoin starter cli app
 
 ## Description
 
