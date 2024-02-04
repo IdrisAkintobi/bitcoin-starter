@@ -15,7 +15,9 @@ export class TransactionService {
                 index: input.index,
                 script: input.script?.toString('hex'),
                 sequence: input.sequence,
-                witness: input.witness,
+                ...(input.witness && {
+                    witness: JSON.stringify(input.witness.map(i => i.toString('hex'))),
+                }),
             };
         });
 
