@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs';
 import { resolve } from 'node:path';
 import { promisify } from 'node:util';
 
-const DB_PATH = resolve(__dirname, '..', '../db.json');
+const DB_PATH = resolve('./db.json');
 
 const read = promisify(readFile);
 const write = promisify(writeFile);
