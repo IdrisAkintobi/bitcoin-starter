@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import { User } from '../services/user';
 
 export const handleAuth = async () => {
-    const answer = await inquirer.prompt([
+    const { Auth } = await inquirer.prompt([
         {
             type: 'list',
             name: 'Auth',
@@ -11,7 +11,7 @@ export const handleAuth = async () => {
         },
     ]);
 
-    if (answer.Auth === 'Login' || answer.Auth === 'Create Account') {
+    if (Auth === 'Login' || Auth === 'Create Account') {
         const credentials = await inquirer.prompt([
             {
                 type: 'input',
@@ -28,7 +28,7 @@ export const handleAuth = async () => {
             },
         ]);
 
-        switch (answer.Auth) {
+        switch (Auth) {
             case 'Login':
                 return await User.login(credentials);
             default:

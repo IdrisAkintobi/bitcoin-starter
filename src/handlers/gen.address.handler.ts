@@ -1,11 +1,11 @@
+import { Network } from 'bitcoinjs-lib';
 import inquirer from 'inquirer';
-import { bitcoinNetwork } from '../main';
-import { BIP32AddressGenerator } from '../services/addressGenerator';
+import { BIP32AddressGenerator } from '../services/addressGenerator.service';
 import { AddressType } from '../types/enum';
 import { UserInterface } from '../types/interface';
 
-export const handleGenerateAddress = async (user: UserInterface) => {
-    const answer = await inquirer.prompt([
+export const handleGenerateAddress = async (user: UserInterface, appNetwork: Network) => {
+    const { generateAddress } = await inquirer.prompt([
         {
             type: 'confirm',
             name: 'generateAddress',
@@ -14,9 +14,8 @@ export const handleGenerateAddress = async (user: UserInterface) => {
         },
     ]);
 
-    if (answer.generateAddress) {
-        const addressGenerator = new BIP32AddressGenerator(user.seed!, bitcoinNetwork);
-        // const address = addressGenerator.generateAddress('P2PKH', 0);
+    if (generateAddress) {
+        const addressGenerator = new BIP32AddressGenerator(user.seed!, appNetwork);
 
         const addressTypeAnswer = await inquirer.prompt([
             {

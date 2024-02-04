@@ -1,12 +1,10 @@
-import { networks } from 'bitcoinjs-lib';
 import { program } from 'commander';
 
 import { handleAuth } from './handlers/auth.handler';
 import { handleCheckBalance } from './handlers/check.balance.handler';
 import { handleGenerateAddress } from './handlers/gen.address.handler';
-
-// Define the Bitcoin network
-export const bitcoinNetwork = networks.testnet;
+import { networkSelectorHandler } from './handlers/network.selector.handler';
+import { handleTransactions } from './handlers/transactions.handler';
 
 // Define CLI commands
 program
@@ -14,8 +12,10 @@ program
     .description('Start the interactive terminal')
     .action(async () => {
         const user = await handleAuth();
+        const { appNetwork } = await networkSelectorHandler();
         await handleCheckBalance();
-        await handleGenerateAddress(user);
+        await handleTransactions();
+        await handleGenerateAddress(user, appNetwork);
     });
 
 // Parse the command line arguments
