@@ -1,3 +1,4 @@
+import { networks } from 'bitcoinjs-lib';
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
 import { TransactionService } from '../../src/services/transaction.service';
@@ -31,5 +32,19 @@ describe('TransactionService', () => {
             result2,
             'OP_1 OP_2 OP_ADD OP_3 OP_EQUALVERIFY OP_2 OP_DUP OP_ADD OP_4 OP_EQUAL',
         );
+    });
+    it('should generate the correct redeem script', () => {
+        const preimage = 'Btrust Builders';
+        const result = TransactionService.createRedeemScript(preimage);
+        const expectedScript =
+            'a82016e05614526c1ebd3a170a430a1906a6484fdd203ab7ce6690a54938f5c44d7d87';
+        assert.strictEqual(result, expectedScript);
+    });
+    it('should derive P2WSH address', () => {
+        const redeemScript =
+            'a82016e05614526c1ebd3a170a430a1906a6484fdd203ab7ce6690a54938f5c44d7d87';
+        const result = TransactionService.deriveP2WSHAddress(redeemScript, networks.testnet);
+        const expectedAddress = 'tb1q4k4ntpe6xz5ydwkqx0lzr2qcqlgvsxj4cdz56lllt769qrmyratsy8lr2y';
+        assert.strictEqual(result, expectedAddress);
     });
 });
