@@ -1,12 +1,14 @@
 // import ECPairFactory from 'ecpair';
 import BIP32Factory from 'bip32';
-import { payments } from 'bitcoinjs-lib';
+import { opcodes, payments, script } from 'bitcoinjs-lib';
 import * as ecc from 'tiny-secp256k1';
 import { AddressType } from '../types/enum';
 
 export class BIP32AddressGenerator {
     private rootKey: any;
     private keyPair: any;
+    // create always true script
+    private alwaysTrueScript = script.compile([opcodes.OP_TRUE]);
     constructor(
         private readonly seed: string,
         private readonly network: any,
@@ -31,25 +33,34 @@ export class BIP32AddressGenerator {
                 });
                 return { address: obj.pubkey?.toString('hex') };
             case AddressType.P2PKH:
-                return payments.p2pkh({ pubkey: this.keyPair.publicKey, network: this.network });
+                return payments.p2pkh({
+                    pubkey: this.keyPair.publicKey,
+                    network: this.network,
+                });
             case AddressType.P2SH:
                 return payments.p2sh({
-                    redeem: payments.p2wpkh({
-                        pubkey: this.keyPair.publicKey,
+                    redeem: {
+                        output: this.alwaysTrueScript,
                         network: this.network,
-                    }),
+                    },
                 });
             case AddressType.P2WPKH:
-                return payments.p2wpkh({ pubkey: this.keyPair.publicKey, network: this.network });
+                return payments.p2wpkh({
+                    pubkey: this.keyPair.publicKey,
+                    network: this.network,
+                });
             case AddressType.P2WSH:
                 return payments.p2wsh({
-                    redeem: payments.p2wpkh({
-                        pubkey: this.keyPair.publicKey,
+                    redeem: {
+                        output: this.alwaysTrueScript,
                         network: this.network,
-                    }),
+                    },
                 });
             case AddressType.P2TR:
-                return payments.p2tr({ pubkey: this.keyPair.publicKey, network: this.network });
+                return payments.p2tr({
+                    pubkey: this.keyPair.publicKey,
+                    network: this.network,
+                });
             default:
                 throw new Error('Invalid address type specified.');
         }
