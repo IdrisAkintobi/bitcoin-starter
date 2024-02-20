@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "username": "test1",
+        "password": "$argon2id$v=19$m=65536,t=3,p=4$ufc63E1iyPFNA9cxD98k+w$PSWGXHDtMzvu1Tys0HLHaL7l+z6jZG3xJSJOyd35JPc",
+        "seed": "b9746ec3ba4301cdcf1943cc04531ce8a01804e7e518758e91b740a5167cc84e"
+    },
+    {
+        "username": "test",
+        "password": "$argon2id$v=19$m=65536,t=3,p=4$Frd2EQuhftiD9eypSNqtAw$YSf+n4cwSVi8po4ZbEszEk2KwlVSCY0yGtVlzqdcmaQ",
+        "seed": "305a2e5a1c156e566c67b0658340937ed233c357094711d705f6c66bdd0329e3"
+    }
+]
