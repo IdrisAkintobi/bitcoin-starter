@@ -4,7 +4,6 @@ import { handleAuth } from './handlers/auth.handler';
 import { handleCheckBalance } from './handlers/check.balance.handler';
 import { handleGenerateAddress } from './handlers/gen.address.handler';
 import { networkSelectorHandler } from './handlers/network.selector.handler';
-import { handleTransactions } from './handlers/transactions.handler';
 
 // Define CLI commands
 program
@@ -14,7 +13,6 @@ program
         const user = await handleAuth();
         const { appNetwork } = await networkSelectorHandler();
         await handleCheckBalance();
-        await handleTransactions();
         await handleGenerateAddress(user, appNetwork);
     });
 
